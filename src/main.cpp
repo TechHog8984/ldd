@@ -546,9 +546,6 @@ int main(int argc, char** argv) {
     #undef DECREMENT_ALL
     #undef DECREMENT
 
-    if (LOG)
-        puts("[log] scores assigned. sorting ...");
-
     // ensure at least one score is above 0
     #define X(name) score_##name ||
     if (!(DECOMPILERS(X) false)) {
