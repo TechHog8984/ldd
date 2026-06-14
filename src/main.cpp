@@ -603,6 +603,8 @@ int main(int argc, char** argv) {
     DECOMPILERS(X) ; // important semi-colon
     #undef X
 
+    if (LOG)
+        printf("detected: ");
     printf("%s\n", best_name);
     if (LOG)
         printf("\nscore: %d\n", *best);
