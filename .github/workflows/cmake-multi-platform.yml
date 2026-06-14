@@ -62,18 +62,6 @@ jobs:
     - name: create timestamp
       id: timestamp
       run: echo "value=$(date +'%F_%H-%M-%S')" >> $GITHUB_OUTPUT
-    - uses: actions/upload-artifact@v4
-      if: matrix.os != 'windows-latest'
-      with:
-        name: luau-${{matrix.os}}
-        path: luau*
-        overwrite: true
-    - uses: actions/upload-artifact@v4
-      if: matrix.os == 'windows-latest'
-      with:
-        name: luau-${{matrix.os}}
-        path: Release\luau*.exe
-        overwrite: true
     - name: create release
       id: create_release
       uses: actions/create-release@v1
@@ -87,7 +75,7 @@ jobs:
       run: cd build && zip ldd-${{matrix.os}}.zip ldd && mv ldd-${{matrix.os}}.zip ../
     - name: pack
       if: matrix.os == 'windows-latest'
-      run: 7z a ldd-${{matrix.os}}.zip build\ldd.exe
+      run: cd build\Release && 7z a ldd-${{matrix.os}}.zip ldd.exe && move ldd-${{matrix.os}} ../../
     - uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
