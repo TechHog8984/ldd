@@ -304,7 +304,7 @@ void printUsage(int argc, char** argv) {
     printf("ldd by techhog\n"
         "usage: %s inputfile [options]\n"
         "options:\n"
-        "  -s  - don't log. use twice to disable code analysis (fail silently)\n",
+        "  -s  - don't log. use twice to disable code analysis output (fail silently)\n",
         argc ? argv[0] : "ldd"
     );
 }

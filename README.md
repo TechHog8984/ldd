@@ -20,6 +20,78 @@ cmake -B . -S .. -DCMAKE_BUILD_TYPE=Release && cmake --build .
 # you will now have an executable named ldd
 ```
 
+# USAGE
+```
+ldd by techhog
+usage: ./ldd inputfile [options]
+options:
+  -s  - don't log. use twice to disable code analysis output (fail silently)
+```
+
+```bash
+techhog$ ./build/ldd examples/a_oracle.luau 
+[log] opened file examples/a_oracle.luau
+[log] computing line offsets
+[log] read file (3253 bytes)
+[log] parsing...
+[log] parsed & valid input
+[log] visited. assigning scores ...
+[log] flags:
+  flag ifexpr: true
+  flag compoundassign: false
+  flag var_table: true
+  flag var_num: true
+  flag var_under: true
+  flag var_dunder: false
+  flag var_under_num: false
+  flag simple_upvalue: true
+  flag medal_upvalue: false
+  flag func_name_v: true
+  flag func_name_f: false
+  flag param_under: true
+  flag param_dunder: false
+  flag param_untouched: true
+  flag forvar_medal_upvalue: false
+  flag forvar_under: true
+  flag forvar_dunder: false
+  flag forvar_i: true
+  flag forvar_j: true
+  flag forvar_k: true
+  flag forvar_n: true
+  flag forvar_m: false
+  flag forvar_i_num: false
+  flag forvar_n_num: true
+  flag forvar_v_num: false
+  flag forinvar_medal_upvalue: false
+  flag forinvar_under: true
+  flag forinvar_dunder: false
+  flag func_no_header: false
+  flag func_singleline: false
+  flag func_header_block: false
+  flag func_header_singleline: true
+[log] scores assigned. sorting ...
+[log] scores:
+  oracle = 14
+  luaexpert = 0
+  medal = -6
+oracle
+score: 14
+```
+
+```bash
+$ ./build/ldd examples/a_medal.luau -s
+medal
+```
+
+```bash
+$ ./build/ldd examples/a_input.luauc
+[ERROR]: there were 77 parse errors:
+  0:0 - 0:1 - Expected identifier when parsing expression, got ''
+  0:1 - 0:2 - Expected identifier when parsing expression, got ''
+  0:2 - 0:3 - Expected identifier when parsing expression, got '*'
+  ...
+```
+
 # INFORMATION I COLLECTED
 DO NOT TREAT THE FOLLOWING AS FACT; I WROTE IT DOWN PURELY TO HELP ME IN MY DEVELOPMENT AND I DID NOT INTENSIVELY FACT CHECK
 
