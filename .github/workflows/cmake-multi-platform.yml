@@ -33,37 +33,31 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set reusable strings
-      id: strings
-      shell: bash
-      run: |
-        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
-
     - name: cache for dependencies
       uses: actions/cache@v4
       if: matrix.os != 'windows'
       with:
-        path: ${{ steps.strings.outputs.build-output-dir }}/_deps
+        path: build/_deps
         key: ${{ runner.os }}-dependencies-${{ hashFiles('luauver.txt') }}
     - name: cache for dependencies
       uses: actions/cache@v4
       if: matrix.os == 'windows'
       with:
-        path: ${{ steps.strings.outputs.build-output-dir }}\_deps
+        path: build\_deps
         key: ${{ runner.os }}-dependencies-${{ hashFiles('luauver.txt') }}
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: >
-        cmake -B ${{ steps.strings.outputs.build-output-dir }}
+        cmake -B build
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -S ${{ github.workspace }}
 
     - name: Build
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
+      run: cmake --build build --config ${{ matrix.build_type }}
 
     - name: create timestamp
       id: timestamp
@@ -90,10 +84,10 @@ jobs:
         release_name: ${{ steps.timestamp.outputs.value }}
     - name: pack
       if: matrix.os != 'windows'
-      run: pushd ${{ steps.strings.outputs.build-output-dir }} && zip ldd-${{matrix.os}}.zip ldd && mv $(pwd)/ldd-${{matrix.os}}.zip $(popd)
+      run: cd build && zip ldd-${{matrix.os}}.zip ldd && mv ldd-${{matrix.os}}.zip ../
     - name: pack
       if: matrix.os == 'windows'
-      run: 7z a ldd-${{matrix.os}}.zip ${{ steps.strings.outputs.build-output-dir }}\ldd.exe
+      run: 7z a ldd-${{matrix.os}}.zip build\ldd.exe
     - uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
