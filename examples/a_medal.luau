@@ -16,18 +16,26 @@ local v8 = 72 + 1
 _G.a = v8
 for v9 = 1, 100 do
 	for v10 = v9, 100 do
-		for v11 = v10, 100 do
-			for v12 = v11, 100 do
-				for v13 = v12, 100 do
-					for v14 = v13, 100 do
-						for v15 = v14, 100 do
-							print(v15 + v14 - v8)
+		for _ = v10, 100 do
+			for _ = 4, 100 do
+				for v11 = 5, 100 do
+					for v12 = v11, 100 do
+						for v13 = v12, 100 do
+							print(v13 + v12 - v8)
 						end
 					end
 				end
 			end
 		end
 	end
+end
+for v_u_14, _, v15, _ in foo do
+	glob(v_u_14, v15)
+	function glob2()
+		-- upvalues: (copy) v_u_14
+		return v_u_14
+	end
+	function glob3() end
 end
 local _, v16, _, _, _ = (function()
 	return 1, 2, 3
@@ -128,3 +136,21 @@ shared.b = v45
 local v46 = game.somethingcool
 shared.a = v46
 shared.b = v46
+local v47 = print
+local v48
+if foo() then
+	v48 = bar
+else
+	v48 = baz
+end
+v47(v48)
+local v49 = shared
+v49.a = v49.a + 141
+local v50 = shared
+v50.b = v50.b - 41
+local v51 = 10
+for v52 = 1, 10 do
+	if v52 == 1 then
+		v51 = v51 + 1
+	end
+end

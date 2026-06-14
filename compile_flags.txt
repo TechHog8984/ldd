@@ -1,0 +1,4 @@
+-std=c++17
+
+-Ibuild/_deps/luau-src/Ast/include
+-Ibuild/_deps/luau-src/Common/include

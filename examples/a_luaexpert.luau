@@ -26,8 +26,8 @@ _G.a = v6
 for i = 1, 100 do
 	for j = i, 100 do
 		for k = j, 100 do
-			for n = k, 100 do
-				for m = n, 100 do
+			for n = 4, 100 do
+				for m = 5, 100 do
 					for i2 = m, 100 do
 						for i3 = i2, 100 do
 							print(i3 + i2 - v6)
@@ -39,11 +39,19 @@ for i = 1, 100 do
 	end
 end
 
-local _, v7, _2, _3, _4 = (function() --[[ Line: 36 ]]
+for v7, v8, v9, v10 in foo do
+	glob(v7, v9)
+	function glob2() --[[ Line: 38 | Upvalues: v7 (copy) ]]
+		return v7
+	end
+	function glob3() --[[ Line: 41 ]] end
+end
+
+local _, v11, _2, _3, _4 = (function() --[[ Line: 44 ]]
 	return 1, 2, 3
 end)()
 
-print(v7 + 3)
+print(v11 + 3)
 print(foo() - 3)
 print({ 1 })
 print({ fowersfewrwewewerewrwerrwwrwrrwwr3322qweruqiweriuqweiurwerqwerqweryuiqweriuqweriuqweuirqwuierw3() })
@@ -63,7 +71,7 @@ print({
 	2.3423414324242424e16
 })
 
-local _5 = (function() --[[ Line: 50 ]] end)() + 0
+local _5 = (function() --[[ Line: 58 ]] end)() + 0
 local t = {}
 local t2 = {}
 
@@ -72,41 +80,41 @@ glob2 = t
 glob3 = t2
 glob4 = t2
 
-local function f9() --[[ Line: 60 ]]
+local function f13() --[[ Line: 68 ]]
 	return 1
 end
 
-glob5 = f9
-glob6 = f9
+glob5 = f13
+glob6 = f13
 
 local goodcharacters = game:WaitForChild("goodcharacters")
-local v10 = shared
-local v11 = shared
-
-v10.a = goodcharacters
-v11.b = goodcharacters
-
-local v12 = game:WaitForChild("bad characters")
-local v13 = shared
 local v14 = shared
+local v15 = shared
 
-v13.a = v12
-v14.b = v12
+v14.a = goodcharacters
+v15.b = goodcharacters
 
-local v15 = game:WaitForChild("bad-characters")
-local v16 = shared
+local v16 = game:WaitForChild("bad characters")
 local v17 = shared
+local v18 = shared
 
-v16.a = v15
-v17.b = v15
+v17.a = v16
+v18.b = v16
 
-local v18 = game:WaitForChild("1badcharacters")
-local v19 = shared
+local v19 = game:WaitForChild("bad-characters")
 local v20 = shared
+local v21 = shared
 
-v19.a = v18
-v20.b = v18;
-(function(p1) --[[ Line: 73 ]]
+v20.a = v19
+v21.b = v19
+
+local v22 = game:WaitForChild("1badcharacters")
+local v23 = shared
+local v24 = shared
+
+v23.a = v22
+v24.b = v22;
+(function(p1) --[[ Line: 81 ]]
 	local v1 = game:FindFirstChild(p1)
 	local v2 = game:FindFirstChild(p1)
 	local v3 = game:WaitForChild(p2)
@@ -132,14 +140,14 @@ shared.a = fakeservice1232
 game:WaitForChild({
 	[setmetatable({}, {
 		__metatable = "The metatable is locked",
-		__tostring = function() --[[ Line: 105 | Upvalues: v18 (ref), t (ref) ]]
+		__tostring = function() --[[ Line: 113 | Upvalues: v22 (ref), t (ref) ]]
 			for i = 1, 15 do
-				if not pcall(function() --[[ Line: 108 | Upvalues: i (copy), v18 (ref), t (ref) ]]
-					if getfenv(i).script == script or not v18 then
+				if not pcall(function() --[[ Line: 116 | Upvalues: i (copy), v22 (ref), t (ref) ]]
+					if getfenv(i).script == script or not v22 then
 						return
 					end
 
-					v18 = 1
+					v22 = 1
 					t = 30
 					v375[1][v375[3]] = "Namecall Detected"
 				end) then
@@ -159,3 +167,20 @@ local somethingcool2 = game.somethingcool
 
 shared.a = somethingcool2
 shared.b = somethingcool2
+print(if foo() then bar else baz)
+
+local v27 = shared
+
+v27.a = v27.a + 141
+
+local v28 = shared
+
+v28.b = v28.b - 41
+
+local count = 10
+
+for i = 1, 10 do
+	if i == 1 then
+		count = count + 1
+	end
+end

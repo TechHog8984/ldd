@@ -1,6 +1,27 @@
 # ldd - Lua Decompiler Detector
 
-I want to make a tool that detects what decompiler was used on a given output, but I'm lazy so for now I'm just going to start writing down some facts about decompilers.
+ldd takes in a decompiled lua script and outputs what decompiler it thinks was used.
+
+NOTE: ldd expects output from a decompiler... if you pass in a script that was not decompiled, it will happily tell you that Oracle or luaexpert was used (garbage in = garbage out)
+
+# LICENSING
+ldd uses code from [lute](https://github.com/luau-lang/lute). see [lute_LICENSE.txt](lute_LICENSE.txt)
+
+# OBTAINING
+```bash
+git clone https://github.com/TechHog8984/ldd.git
+```
+
+# BUILDING
+```bash
+cd ldd
+mkdir build && cd build
+cmake -B . -S .. -DCMAKE_BUILD_TYPE=Release && cmake --build .
+# you will now have an executable named ldd
+```
+
+# INFORMATION I COLLECTED
+DO NOT TREAT THE FOLLOWING AS FACT; I WROTE IT DOWN PURELY TO HELP ME IN MY DEVELOPMENT AND I DID NOT INTENSIVELY FACT CHECK
 
 Note that decompilers can have extensive customizability and unless otherwise stated each fact pertains to the default settings.
 
@@ -18,8 +39,7 @@ When describing a 'format', a lua pattern will be used (a leading ^ and a traili
   * v%d is used in other cases
 * function names follow the format follow v%d
 * function parameters follow the format p%d (not always starting at 1)
-* _ and __ are omitted for unused variables (__ seems to be used in for loops and function parameters while _ is used for general variables such as `local _ = (function()end)() + 1`[^o1])
-  * this holds true for for loop variables
+* _ and __ are omitted for unused variables (they seem to be both used randomly (the same choice will be in every use in the same file but I've seen samples with both (idk dude)))
 * dynamic table output:
   * empty tables will be on one line (`local t3 = {}`)
   * lists with one item will be on one line with the value surrounded by spaces (`local t2 = { globalfunction() }`)
@@ -60,6 +80,7 @@ return v1
 
 ## [lua.expert](https://lua.expert)
 * supports Luau v? - v9, maybe more? (lua 5.1 failed and I'm not gonna test any other)
+* outputs if expressions but not compound assigments
 * no customizability, yay!
 * variables follow the format \[vt]%d?
   * t%d? is used when the variable is declared as a table (`local t = { 1 }`, `local t2 = {}`)
@@ -94,7 +115,7 @@ return v1
 * unused variables and parameters become _
   * unused for loop variables undergo NO change
 * dynamic table output (see Oracle)
-* for loop variables use the same format as normal variables (minus unused of course)
+* for loop variables use the same format as normal variables (including upvalues and unused)
 * for step is omitted if it's 1
 * functions with empty bodies are kept on one line
 * function comments look like (at the top of the body) --upvalues: (copy|ref) v_u_%d, ...
