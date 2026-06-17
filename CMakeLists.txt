@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(ldd LANGUAGES CXX)
+project(trance LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,8 +15,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(luau)
 
-add_executable(ldd src/main.cpp)
+add_executable(trance src/main.cpp)
 
-target_link_libraries(ldd PRIVATE
+target_link_libraries(trance PRIVATE
     Luau.Ast
 )

@@ -1,35 +1,35 @@
-# ldd - Lua Decompiler Detector
+# trance - a Lua decompiler detector
 
-ldd takes in a decompiled lua script and outputs what decompiler it thinks was used.
+trance takes in a decompiled lua script and outputs what decompiler it thinks was used.
 
-NOTE: ldd expects output from a decompiler... if you pass in a script that was not decompiled, it will happily tell you that Oracle or luaexpert was used (garbage in = garbage out)
+NOTE: trance expects output from a decompiler... if you pass in a script that was not decompiled, it will happily tell you that Oracle or luaexpert was used (garbage in = garbage out)
 
 # LICENSING
-ldd uses code from [lute](https://github.com/luau-lang/lute). see [lute_LICENSE.txt](lute_LICENSE.txt)
+trance uses code from [lute](https://github.com/luau-lang/lute). see [lute_LICENSE.txt](lute_LICENSE.txt)
 
 # OBTAINING
 ```bash
-git clone https://github.com/TechHog8984/ldd.git
+git clone https://github.com/TechHog8984/trance.git
 ```
 
 # BUILDING
 ```bash
-cd ldd
+cd trance
 mkdir build && cd build
 cmake -B . -S .. -DCMAKE_BUILD_TYPE=Release && cmake --build .
-# you will now have an executable named ldd
+# you will now have an executable named trance
 ```
 
 # USAGE
 ```
-ldd by techhog
-usage: ./ldd inputfile [options]
+trance by techhog
+usage: ./trance inputfile [options]
 options:
   -s  - don't log. use twice to disable code analysis output (fail silently)
 ```
 
 ```bash
-techhog$ ./build/ldd examples/a_oracle.luau
+techhog$ ./build/trance examples/a_oracle.luau
 [log] opened file. examples/a_oracle.luau
 [log] read file. (3253 bytes)
 [log] computing line offsets...
@@ -79,12 +79,12 @@ score: 14
 ```
 
 ```bash
-$ ./build/ldd examples/a_medal.luau -s
+$ ./build/trance examples/a_medal.luau -s
 medal
 ```
 
 ```bash
-$ ./build/ldd examples/a_input.luauc
+$ ./build/trance examples/a_input.luauc
 [ERROR]: there were 77 parse errors:
   0:0 - 0:1 - Expected identifier when parsing expression, got ''
   0:1 - 0:2 - Expected identifier when parsing expression, got ''
