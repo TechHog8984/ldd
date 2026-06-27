@@ -335,7 +335,7 @@ int main(int argc, char** argv) {
     #define LOGERR (logging > 0)
     #define LOG (logging > 1)
 
-    const char* file_path = argv[1];
+    const char* file_path = argv[file_argc];
 
     std::ifstream file(file_path);
     if (!file) {
